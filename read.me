@@ -1,0 +1,83 @@
+# API with Symfony for Activities and Suppliers
+
+This is a api create with Symfony for list activites, suppliers and activities with suppliers. 
+
+---
+
+## **Steps for configurate the repository**
+
+### **Requirements**
+- PHP 8.1 o higher
+- Composer
+- MySQL
+- Symfony CLI
+- Laragon, XAMPP, WAMP, etc. for the run project in localhost
+
+### **Configurate the project**
+ Clone the repository:
+   ```bash
+   git clone https://github.com/TomeuMut/symfony-endpoints
+   cd symfony-endpoints
+   ```
+### Install PHP dependencies
+```bash
+composer install
+```
+### Set up the environment file
+Copy the example `.env` file and update it:
+```bash
+cp .env.dev .env
+```
+
+### Create the database and config
+Add or modify this line in yout .env
+```bash
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/database"
+```
+
+### Execute migrations
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+### Execute your localhost or create a virtualhost for this project.
+
+### **Data Model**
+
+### User 
+- id (PK): Unique identifier of the user.
+- name: Username (unique).
+- password: Password (stored as a hash).
+
+### Activity 
+- id (PK): Unique identifier of the user.
+- name: Name of activity.
+- short_description: Short description of activity.
+- long_description: Long description of activity.
+- price: Price of activity.
+- supplier_id: Relation with supplier.
+
+### Supplier 
+- id (PK): Unique identifier of the user.
+- name: Name of activity.
+
+### **List of endpoints**
+### Activities
+- GET `/activities` List all activites
+- GET `/activities/{id}` Return activity by id
+- GET `/activities-search?name={name}` Search activity by name
+- POST `/create-activities` Create a activity with a Json body 
+- `{
+    "name": "Adventure 2",
+    "short_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut facilisis consequat est, a convallis sapien maximus quis.",
+    "long_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut facilisis consequat est, a convallis sapien maximus quis. Mauris eleifend lacus felis, sit amet interdum neque lobortis nec.",
+    "price": 49.99}`
+- GET `/activities-suppliers` List activities with suppliers and without a supplier
+
+### Suppliers
+- GET `/suppliers` List all Suppliers
+
+### Users
+- POST `/create-activities` Create a activity with a Json body 
+- `{"name": "supersecretuser",
+    "password": "supersecret"}`
